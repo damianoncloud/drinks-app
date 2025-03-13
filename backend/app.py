@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import os
 import requests
 
-# Loadng environment variables from .env file
+# Load environment variables from .env file
 load_dotenv()
 
 # Create a Flask instance
@@ -29,13 +29,13 @@ db.bind(
 )
 
 
-@app.route('/api/getmargherita', methods=['GET'])
-def get_margherita():
+@app.route('/api/getcocktail/<userInput>', methods=['GET'])
 
-    # Chiamata GET verso un'API esterna usando requests
-    response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
+def get_cocktail(userInput):
+    # Http request to the cocktaildb API
+    response = requests.get(f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={userInput}')
 
-    # Restituisci la risposta dall'API esterna
+    # Return a response from external API
     if response.status_code == 200:
         return jsonify(response.json()), 200
     else:
