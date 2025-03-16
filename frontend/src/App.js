@@ -1,13 +1,14 @@
 import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import DrinkCard from "./components/DrinkCard";
+import DrinkCardFront from "./components/DrinkCardFront";
 import { Grid } from "@mui/system";
 import { TextField } from "@mui/material";
+import FlippingCard from "./components/FlippingCard";
 
 function App() {
   const [cocktails, setCocktails] = useState([]);
-  const [userInput, setUserInput] = useState("margherita");
+  const [userInput, setUserInput] = useState("margarita");
 
   useEffect(() => {
     if (userInput !== "") {
@@ -37,6 +38,7 @@ function App() {
         onChange={handleInput}
         placeholder="Search cocktail by name"
       ></TextField>
+      <FlippingCard />
       <Grid
         container
         sx={{ justifyContent: "center" }}
@@ -45,7 +47,7 @@ function App() {
       >
         {cocktails && cocktails.length > 0 ? (
           cocktails.map((cocktail) => (
-            <DrinkCard key={cocktail.idDrink} cocktail={cocktail} />
+            <FlippingCard key={cocktail.idDrink} cocktail={cocktail} />
           ))
         ) : (
           <p>No cocktails found</p>
