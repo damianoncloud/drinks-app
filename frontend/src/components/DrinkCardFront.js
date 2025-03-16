@@ -10,7 +10,11 @@ import IconButton from "@mui/joy/IconButton";
 import Link from "@mui/joy/Link";
 import Favorite from "@mui/icons-material/Favorite";
 
-const DrinkCard = ({ cocktail }) => {
+const DrinkCardFront = ({ cocktail, handleClick }) => {
+  if (!cocktail || !cocktail.strDrinkThumb || !cocktail.strDrink) {
+    return;
+  }
+
   return (
     <div className="drinkCard">
       <Card variant="outlined" sx={{ width: 320 }}>
@@ -59,7 +63,9 @@ const DrinkCard = ({ cocktail }) => {
             orientation="horizontal"
             sx={{ display: "flex", justifyContent: "space-between" }}
           >
-            <Typography level="body-xs">DETAILS</Typography>
+            <Typography level="body-xs">
+              <button onClick={handleClick}>DETAILS</button>
+            </Typography>
             <Divider orientation="vertical" />
             <Typography level="body-xs">{cocktail.strAlcoholic}</Typography>
           </CardContent>
@@ -69,4 +75,4 @@ const DrinkCard = ({ cocktail }) => {
   );
 };
 
-export default DrinkCard;
+export default DrinkCardFront;
