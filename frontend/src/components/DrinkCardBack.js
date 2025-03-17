@@ -11,6 +11,7 @@ import Link from "@mui/joy/Link";
 import Favorite from "@mui/icons-material/Favorite";
 import WineBarIcon from "@mui/icons-material/WineBar";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { Button } from "@mui/material";
 
 const DrinkCardBack = ({ cocktail, handleClick }) => {
   if (!cocktail || !cocktail.strDrinkThumb || !cocktail.strDrink) {
@@ -150,10 +151,16 @@ const DrinkCardBack = ({ cocktail, handleClick }) => {
           <Divider inset="context" />
           <CardContent
             orientation="horizontal"
-            sx={{ display: "flex", justifyContent: "space-between" }}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
             <Typography level="body-xs">
-              <button onClick={handleClick}>Flip back</button>
+              <Button variant="contained" onClick={handleClick}>
+                Flip back
+              </Button>
             </Typography>
             <Divider orientation="vertical" />
             <Typography level="body-xs">{cocktail.strAlcoholic}</Typography>
