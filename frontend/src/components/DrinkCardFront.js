@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 // import * as React from "react";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Card from "@mui/joy/Card";
@@ -9,11 +10,39 @@ import Typography from "@mui/joy/Typography";
 import IconButton from "@mui/joy/IconButton";
 import Link from "@mui/joy/Link";
 import Favorite from "@mui/icons-material/Favorite";
+import { Button } from "@mui/material";
+import axios from "axios";
 
-const DrinkCardFront = ({ cocktail, handleClick }) => {
+const DrinkCardFront = ({
+  cocktail,
+  handleClick,
+  handleClickOpen,
+  setQrCodeUrl,
+}) => {
   if (!cocktail || !cocktail.strDrinkThumb || !cocktail.strDrink) {
     return;
   }
+
+  const handleBuy = (cocktailId) => {
+    console.log(cocktailId);
+    // API call to generate QR code
+    axios
+      .get(`http://127.0.0.1:5000/api/generateqrcode/${cocktailId}`, {
+        // Set response type as blob (binary file)
+        responseType: "blob",
+      })
+      .then((response) => {
+        // Create temporary URL to render QR Code image
+        const qrUrl = URL.createObjectURL(response.data);
+        // Set qrUrl in state
+        setQrCodeUrl(qrUrl);
+        // Open qrCode Modal
+        handleClickOpen();
+      })
+      .catch((error) => {
+        console.error("Error generating QR code:", error);
+      });
+  };
 
   return (
     <div className="drinkCard">
@@ -61,10 +90,23 @@ const DrinkCardFront = ({ cocktail, handleClick }) => {
           <Divider inset="context" />
           <CardContent
             orientation="horizontal"
-            sx={{ display: "flex", justifyContent: "space-between" }}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
             <Typography level="body-xs">
-              <button onClick={handleClick}>DETAILS</button>
+              <Button variant="contained" onClick={handleClick}>
+                DETAILS
+              </Button>
+              <Button
+                variant="contained"
+                sx={{ marginLeft: "6px" }}
+                onClick={() => handleBuy(cocktail.idDrink)}
+              >
+                BUY
+              </Button>
             </Typography>
             <Divider orientation="vertical" />
             <Typography level="body-xs">{cocktail.strAlcoholic}</Typography>
