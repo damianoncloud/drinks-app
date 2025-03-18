@@ -4,7 +4,12 @@ import ReactCardFlip from "react-card-flip";
 import DrinkCardFront from "./DrinkCardFront";
 import DrinkCardBack from "./DrinkCardBack";
 
-const FlippingCard = ({ cocktail, handleClickOpen, setQrCodeUrl }) => {
+const FlippingCard = ({
+  cocktail,
+  handleClickOpen,
+  setQrCodeUrl,
+  handleAddFavourite,
+}) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClick = (e) => {
@@ -19,6 +24,7 @@ const FlippingCard = ({ cocktail, handleClickOpen, setQrCodeUrl }) => {
         handleClick={handleClick}
         handleClickOpen={handleClickOpen}
         setQrCodeUrl={setQrCodeUrl}
+        handleAddFavourite={handleAddFavourite}
       >
         This is the front of the card.
         <button onClick={handleClick}>Click to flip</button>

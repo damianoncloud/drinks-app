@@ -18,6 +18,7 @@ const DrinkCardFront = ({
   handleClick,
   handleClickOpen,
   setQrCodeUrl,
+  handleAddFavourite,
 }) => {
   if (!cocktail || !cocktail.strDrinkThumb || !cocktail.strDrink) {
     return;
@@ -62,6 +63,7 @@ const DrinkCardFront = ({
             size="md"
             variant="solid"
             color="neutral"
+            onClick={() => handleAddFavourite(cocktail.idDrink)}
             sx={{
               position: "absolute",
               zIndex: 2,
