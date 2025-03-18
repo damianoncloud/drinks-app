@@ -54,7 +54,7 @@ def generateQrCode(cocktailId):
         # Defining path to save qrcodes
         save_dir = os.path.join(os.getcwd(), 'static', 'qrcodes')  # Cartella static/qrcodes
 
-        # Verifyin if directory exists, otherwise we create it
+        # Verify if directory exists, otherwise create it
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
 

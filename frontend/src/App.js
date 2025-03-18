@@ -12,9 +12,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const [cocktails, setCocktails] = useState([]);
+  const [favouriteCocktails, setFavouriteCocktails] = useState([]);
   const [userInput, setUserInput] = useState("margarita");
   const [open, setOpen] = React.useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState(null);
@@ -25,6 +27,14 @@ function App() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleAddFavourite = (cocktailId) => {
+    cocktails.map((cocktail) =>
+      cocktail.idDrink === cocktailId
+        ? setFavouriteCocktails([...favouriteCocktails, cocktail])
+        : ""
+    );
   };
 
   useEffect(() => {
@@ -49,7 +59,8 @@ function App() {
 
   return (
     <div className="App">
-      <h3>Drinks App</h3>
+      <Sidebar favouriteCocktails={favouriteCocktails} />
+      <h2>Drinkiamo</h2>
       <TextField
         sx={{ width: 300, marginBottom: 4 }}
         onChange={handleInput}
@@ -69,6 +80,8 @@ function App() {
               cocktail={cocktail}
               handleClickOpen={handleClickOpen}
               setQrCodeUrl={setQrCodeUrl}
+              setFavouriteCocktails={setFavouriteCocktails}
+              handleAddFavourite={handleAddFavourite}
             />
           ))
         ) : (
