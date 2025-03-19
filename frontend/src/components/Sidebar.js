@@ -17,13 +17,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 
-export default function Sidebar({ favouriteCocktails }) {
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+export default function Sidebar({ favouriteCocktails, toggleDrawer, state }) {
+  //   const [state, setState] = React.useState({
+  //     top: false,
+  //     left: false,
+  //     bottom: false,
+  //     right: false,
+  //   });
 
   function generate(element) {
     return [0, 1, 2].map((value) =>
@@ -33,17 +33,17 @@ export default function Sidebar({ favouriteCocktails }) {
     );
   }
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
+  //   const toggleDrawer = (anchor, open) => (event) => {
+  //     if (
+  //       event &&
+  //       event.type === "keydown" &&
+  //       (event.key === "Tab" || event.key === "Shift")
+  //     ) {
+  //       return;
+  //     }
 
-    setState({ ...state, [anchor]: open });
-  };
+  //     setState({ ...state, [anchor]: open });
+  //   };
 
   const list = (anchor) => (
     <Box
@@ -91,7 +91,7 @@ export default function Sidebar({ favouriteCocktails }) {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <IconButton
+          {/* <IconButton
             onClick={toggleDrawer(anchor, true)}
             aria-label="Like minimal photography"
             size="md"
@@ -108,7 +108,7 @@ export default function Sidebar({ favouriteCocktails }) {
           >
             <Favorite />
             <p>{favouriteCocktails.length}</p>
-          </IconButton>
+          </IconButton> */}
           {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
           <SwipeableDrawer
             anchor={anchor}
