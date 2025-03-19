@@ -13,6 +13,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Sidebar from "./components/Sidebar";
+import Header, {
+  SearchIconWrapper,
+  StyledInputBase,
+} from "./components/Header";
+import Search from "@mui/icons-material/Search";
+import SearchIcon from "@mui/icons-material/Search";
 
 function App() {
   const [cocktails, setCocktails] = useState([]);
@@ -20,6 +26,12 @@ function App() {
   const [userInput, setUserInput] = useState("margarita");
   const [open, setOpen] = React.useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState(null);
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,12 +69,42 @@ function App() {
     setUserInput(event.target.value);
   };
 
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
   return (
     <div className="App">
-      <Sidebar favouriteCocktails={favouriteCocktails} />
-      <h2>Drinkiamo</h2>
+      <Header
+        favouriteCocktails={favouriteCocktails}
+        toggleDrawer={toggleDrawer}
+      />
+      <Sidebar
+        favouriteCocktails={favouriteCocktails}
+        toggleDrawer={toggleDrawer}
+        state={state}
+      />
+      {/* <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          inputProps={{ "aria-label": "search" }}
+          sx={{ width: 300, marginBottom: 4, marginTop: 4 }}
+          onChange={handleInput}
+          placeholder="Search cocktail by name"
+        />
+      </Search> */}
       <TextField
-        sx={{ width: 300, marginBottom: 4 }}
+        sx={{ width: 300, marginBottom: 4, marginTop: 4 }}
         onChange={handleInput}
         placeholder="Search cocktail by name"
       ></TextField>
